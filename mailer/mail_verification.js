@@ -4,7 +4,7 @@ require("dotenv").config();
 const verifyClient=async(client)=>{
     try{
         const verificationToken=client.generateVerificationToken();
-        const url=`http://localhost:8000/signup/verify/${client._id}/${verificationToken}`;
+        const url=`http://localhost:5000/signup/verify/${client._id}/${verificationToken}`;
         
         await transporter.sendMail({
             from:process.env.FROM,
