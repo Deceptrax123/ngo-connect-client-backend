@@ -4,6 +4,7 @@ const session=require("express-session");
 const passport=require("passport");
 const mongoose=require("mongoose");
 const auth=require("./api/auth");
+const clientProfile=require("./api/client_profile");
 
 const app=express();
 
@@ -24,7 +25,8 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/",auth);
+app.use("/",clientProfile);
 
-app.listen(process.env.PORT,function(){
+app.listen(process.env.PORT,()=>{
     console.log("Listening on port "+process.env.PORT);
-})
+});
