@@ -13,7 +13,8 @@ const postSignUp=async(req,res)=>{
         if(existing){
             res.status(409).send({message:"Existing user"});
         }else{
-            const client=Client.register({username:req.body.username,name:req.body.name},req.body.password);
+            const client=await Client.register({username:req.body.username,name:req.body.name,verified:false},req.body.password);
+            console.log(client);
             const verify=await emailVerification(client);
             try{
                 if(!verify){
@@ -30,3 +31,4 @@ const postSignUp=async(req,res)=>{
         res.status(500).send({message:"Internal server error"});
     }
 }
+module.exports={getSignUp,postSignUp};
