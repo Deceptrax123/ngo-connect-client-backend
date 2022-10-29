@@ -33,11 +33,12 @@ const postAddDetail=async(req,res)=>{
         }).save();
 
         await Client.findByIdAndUpdate(req.user._id,{documentVerified:"Submitted and verification pending"});
-
-        res.status(200).send({message:"Submit information successful"})
+        
+        res.status(200);
+        res.json({message:"Information submitted successfully"});
     }catch(err){
         console.log(err);
-        res.status(500).send({message:"Internal server error"});
+        throw new Error("Internal server error");
     }
 }
 

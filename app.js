@@ -5,6 +5,7 @@ const passport=require("passport");
 const mongoose=require("mongoose");
 const auth=require("./api/auth");
 const clientProfile=require("./api/client_profile");
+const vol=require("./api/vol");
 
 const app=express();
 
@@ -26,6 +27,7 @@ app.get("/",(req,res)=>{
 
 app.use("/",auth);
 app.use("/",clientProfile);
+app.use("/",vol);
 
 app.listen(process.env.PORT,()=>{
     console.log("Listening on port "+process.env.PORT);
