@@ -6,19 +6,21 @@ const mongoose=require("mongoose");
 const auth=require("./api/auth");
 const clientProfile=require("./api/client_profile");
 const vol=require("./api/vol");
+const donate=require("./api/donate");
 
 const app=express();
-
-require("./config/db")(mongoose);
 
 app.use(session({
     secret:process.env.TOKEN,
     resave:false,
-    saveUninitialized:true
+    saveUninitialized:false,
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+require("./config/db")(mongoose);
+
 require("./config/passport")(passport);
 
 app.get("/",(req,res)=>{
@@ -28,6 +30,7 @@ app.get("/",(req,res)=>{
 app.use("/",auth);
 app.use("/",clientProfile);
 app.use("/",vol);
+app.use("/",donate)
 
 app.listen(process.env.PORT,()=>{
     console.log("Listening on port "+process.env.PORT);

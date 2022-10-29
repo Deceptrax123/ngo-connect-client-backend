@@ -69,22 +69,23 @@ const postLogin=async(req,res)=>{
         }else if(!client.verified){
             res.json({message:"Not verified"});
         }else{
-            req.login(client,(err)=>{
-                if(err){
-                    throw new Error("Internal server error");
-                }else{
-                    passport.authenticate("local",(err,client,info)=>{
-                        if(err){
-                            throw new Error(err);
-                        }else if(!client){
-                            res.json({message:"Incorrect username or password"});
-                        }else{
-                            res.status(200);
-                            res.json({message:"Logged in successfully"});
-                        }
-                    })(req,res)
-                }
-            })
+           passport.authenticate("local",(err,client,info)=>{
+            if(err){
+                throw new Error(err);
+            }
+            if(!client){
+                 res.json({message:"Incorrect username or passowrd"});
+            }else{
+                req.login(client,(err)=>{
+                    if(err){
+                        throw new Error(err);
+                    }else{
+                        res.status(200);
+                        res.json({message:"Logged in successfully"});
+                    }
+                })
+            }
+           })(req,res);
         }
     }catch(err){
         res.status(500);
